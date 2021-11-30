@@ -6,8 +6,10 @@
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Midterm_team_exotic" expanded="True" selected="True">
-            <Node name="Midterm_team_exotic" expanded="True" />
+          <Node name="Midterm_team_exotic" expanded="True">
+            <Node name="Midterm_team_exotic" expanded="True">
+              <Node name="Program.cs" selected="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
