@@ -1,9 +1,6 @@
 ﻿using System;
 
 
-
-
-//midterm
 namespace Midterm_team_exotic
 {
     class Program
@@ -11,7 +8,10 @@ namespace Midterm_team_exotic
         static void Main(string[] args)
 
         {
+
+            //test
             //Eddie
+
             Console.WriteLine("Hello World!");
         }
     }
