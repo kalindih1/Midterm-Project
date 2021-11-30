@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 
 namespace Midterm_team_exotic
