@@ -27,8 +27,6 @@ namespace Midterm_team_exotic
             streamWriter.Close();
         }
 
-
-
         public static List<Product> ReadFile(string path)
         {
             
