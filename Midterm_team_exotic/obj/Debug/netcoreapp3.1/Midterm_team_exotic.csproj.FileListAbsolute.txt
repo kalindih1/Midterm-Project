@@ -1,0 +1,14 @@
+C:\Users\brige\Source\Repos\Midterm-Project-2\Midterm_team_exotic\bin\Debug\netcoreapp3.1\Midterm_team_exotic.exe
+C:\Users\brige\Source\Repos\Midterm-Project-2\Midterm_team_exotic\bin\Debug\netcoreapp3.1\Midterm_team_exotic.deps.json
+C:\Users\brige\Source\Repos\Midterm-Project-2\Midterm_team_exotic\bin\Debug\netcoreapp3.1\Midterm_team_exotic.runtimeconfig.json
+C:\Users\brige\Source\Repos\Midterm-Project-2\Midterm_team_exotic\bin\Debug\netcoreapp3.1\Midterm_team_exotic.runtimeconfig.dev.json
+C:\Users\brige\Source\Repos\Midterm-Project-2\Midterm_team_exotic\bin\Debug\netcoreapp3.1\Midterm_team_exotic.dll
+C:\Users\brige\Source\Repos\Midterm-Project-2\Midterm_team_exotic\bin\Debug\netcoreapp3.1\Midterm_team_exotic.pdb
+C:\Users\brige\Source\Repos\Midterm-Project-2\Midterm_team_exotic\obj\Debug\netcoreapp3.1\Midterm_team_exotic.csproj.AssemblyReference.cache
+C:\Users\brige\Source\Repos\Midterm-Project-2\Midterm_team_exotic\obj\Debug\netcoreapp3.1\Midterm_team_exotic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\brige\Source\Repos\Midterm-Project-2\Midterm_team_exotic\obj\Debug\netcoreapp3.1\Midterm_team_exotic.AssemblyInfoInputs.cache
+C:\Users\brige\Source\Repos\Midterm-Project-2\Midterm_team_exotic\obj\Debug\netcoreapp3.1\Midterm_team_exotic.AssemblyInfo.cs
+C:\Users\brige\Source\Repos\Midterm-Project-2\Midterm_team_exotic\obj\Debug\netcoreapp3.1\Midterm_team_exotic.csproj.CoreCompileInputs.cache
+C:\Users\brige\Source\Repos\Midterm-Project-2\Midterm_team_exotic\obj\Debug\netcoreapp3.1\Midterm_team_exotic.dll
+C:\Users\brige\Source\Repos\Midterm-Project-2\Midterm_team_exotic\obj\Debug\netcoreapp3.1\Midterm_team_exotic.pdb
+C:\Users\brige\Source\Repos\Midterm-Project-2\Midterm_team_exotic\obj\Debug\netcoreapp3.1\Midterm_team_exotic.genruntimeconfig.cache

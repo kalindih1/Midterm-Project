@@ -10,7 +10,10 @@ namespace Midterm_team_exotic
 
         public static void WriteFile(string path, Product product)
         {
-            path = Path.Combine(Directory.GetCurrentDirectory(), "\\ProductList.txt");
+            path = Path.Combine(Directory.GetCurrentDirectory(), @"\\ProductList.txt");
+
+            if(File.Exists(path) == true)
+            {            
             StreamWriter streamWriter = new StreamWriter(path, true);
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append(product.ProductId);
@@ -25,13 +28,20 @@ namespace Midterm_team_exotic
             streamWriter.WriteLine(stringBuilder.ToString());
             streamWriter.Flush();
             streamWriter.Close();
+            }
+            else
+            {
+                throw new Exception("Please double check the filename to ensure it matches ProductList.txt");
+            }
         }
 
         public static List<Product> ReadFile(string path)
         {
-            
-            path = Path.Combine(Directory.GetCurrentDirectory(), "\\ProductList.txt");
             List<Product> products = new List<Product>();
+           // path = Path.Combine(Directory.GetCurrentDirectory(), "\\ProductList.txt");
+
+            if(File.Exists(path) == true)
+            { 
 
             using(StreamReader streamReader = new StreamReader(path))
             {
@@ -53,6 +63,11 @@ namespace Midterm_team_exotic
 
                     products.Add(productList);
                 }
+            }
+            }
+            else
+            {
+                throw new Exception("Please double check the filename to ensure it matches ProductList.txt");
             }
 
             return products;
