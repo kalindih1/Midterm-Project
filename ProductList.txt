@@ -1,0 +1,13 @@
+1 | Quarter Pounder | Burger | Standard burger with ketchup, mustard, onions, and pickles | 5.99
+2 | McChicken | Chicken | Comes with a spicy signature sauce | 1.49
+3 | Big Mac | Burger | The signature burger from our menu with its signature sauce | 7.99
+4 | Griddle Cakes | Breakfast | Comes with hash browns and some scrambled eggs | 10.69
+5 | Hashbrowns | Breakfast | Our famous hashbrown cakes, now on our dollar menu! | 0.99
+6 | Caramel Macchiato | Coffee | A delicous and creamy coffee drink with caramel syrup | 3.29
+7 | McGriddle | Breakfast | A sausage patty with some sweet english muffins and a hint of maple syrup | 4.49
+8 | Coffee | Coffee | A black cup of piping hot coffee. Ask one of your servers for cream or sugar! | 1.19
+9 | Iced Mocha | Coffee | A delicious iced espresso drink made with whole milk and rich mocha | 4.89 
+10 | Spicy Crispy Chicken Sandwich | Chicken | Our signature crispy chicken sandwich with a bit of a kick | 7.39
+11 | Chicken McNuggets | Chicken | Do it for the nuggies | 5.89
+12 | Sausage Burrito | Breakfast | Our own breakfast burrito stuffed with fluffy eggs, sausage, and fresh peppers | 3.19
+13 | Double Cheeseburger | Burger | Our classic cheeseburger with an extra patty | 2.79
