@@ -9,12 +9,11 @@ namespace Midterm_team_exotic
     {
         static void Main(string[] args)
         {
-           // string testString;
-            //string newTest;
-            //string path = Path.Combine(Directory.GetCurrentDirectory(), @"\Midterm_team_exotic\ProductList.txt");
-            //List<Product> savedList = FileReader.ReadFile(path);
+            
+            string path = Path.Combine(Directory.GetCurrentDirectory(), @"\ProductList.txt");
+            List<Product> savedList = FileReader.ReadFile(path);
 
-           // Console.WriteLine(FileReader.ReadFile(path));
+            Console.WriteLine(FileReader.ReadFile(path));
 
 
 

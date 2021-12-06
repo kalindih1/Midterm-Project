@@ -10,7 +10,7 @@ namespace Midterm_team_exotic
 
         public static void WriteFile(string path, Product product)
         {
-            path = Path.Combine(Directory.GetCurrentDirectory(), @"\\ProductList.txt");
+            path = Path.Combine(Directory.GetCurrentDirectory(), @"\ProductList.txt");
 
             if(File.Exists(path) == true)
             {            
@@ -38,7 +38,7 @@ namespace Midterm_team_exotic
         public static List<Product> ReadFile(string path)
         {
             List<Product> products = new List<Product>();
-           // path = Path.Combine(Directory.GetCurrentDirectory(), "\\ProductList.txt");
+            path = Path.Combine(Directory.GetCurrentDirectory(), @"\ProductList.txt");
 
             if(File.Exists(path) == true)
             { 
