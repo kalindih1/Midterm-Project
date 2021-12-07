@@ -4,18 +4,39 @@ using System.Text;
 
 namespace Midterm_team_exotic
 {
-    public class Product
+    class Product
     {
         private string productName;
+
         public string ProductName
         {
             get { return productName; }
             set { productName = value; }
         }
-        public int ProductId { get; set; }
-        public string ProductCategory { get; set; }
-        public string ProductDescription { get; set; }
-        public double ProductPrice { get; set; }
+
+        private string categoryName;
+
+        public string CategoryName
+        {
+            get { return categoryName; }
+            set { categoryName = value; }
+        }
+
+        private string descriptionName;
+
+        public string DiscriptionName
+        {
+            get { return descriptionName; }
+            set { descriptionName = value; }
+        }
+
+        private double price;
+
+        public double Price
+        {
+            get { return price; }
+            set { price = value; }
+        }
 
 
     }
