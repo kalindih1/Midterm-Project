@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Midterm_team_exotic
 {
-    public class Product
+    public class TestingProductList
     {
         private string productName;
         public string ProductName
@@ -16,6 +16,10 @@ namespace Midterm_team_exotic
         public string ProductCategory { get; set; }
         public string ProductDescription { get; set; }
         public double ProductPrice { get; set; }
+
+        public double PaymentTotal { get; set; }
+        public int ProductOrderQuantity { get; set; }
+        public double ProductTotalTax { get; set; }
 
 
     }

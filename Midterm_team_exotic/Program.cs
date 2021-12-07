@@ -11,17 +11,21 @@ namespace Midterm_team_exotic
         static void Main(string[] args)
         {
             //this is test data of customer purchase
-            var myProduct = new Product { CategoryName = "test data", DiscriptionName = "more test data", Price = 10.50, ProductName = "test name"};
-            var myProduct2 = new Product { CategoryName = "super test data", DiscriptionName = "super more test data", Price = 20.50, ProductName = "super test name" };
-            var products = new List<Product> { myProduct, myProduct2};
+            //var myProduct = new Product { ProductCategory = "test data", ProductDescription = "more test data", ProductPrice = 10.50, ProductName = "test name"};
+            //var myProduct2 = new Product { ProductCategory = "super test data", ProductDescription = "super more test data", ProductPrice = 20.50, ProductName = "super test name" };
+            //var products = new List<Product> { myProduct, myProduct2};
+            //GetUserInput(products);
+
+            var myProduct3 = new TestingProductList { ProductCategory = "test data", ProductDescription = "more test data", ProductPrice = 10.50, ProductName = "test name", PaymentTotal = 20.50, ProductId = 1, ProductOrderQuantity = 3, ProductTotalTax = 40 };
+            var myProduct4 = new TestingProductList { ProductCategory = "test data", ProductDescription = "more test data", ProductPrice = 15.50, ProductName = "test name", PaymentTotal = 30.50, ProductId = 2, ProductOrderQuantity = 6, ProductTotalTax = 60 };
+            var products = new List<TestingProductList> { myProduct3, myProduct4 };
             GetUserInput(products);
-            
             //I suck
-            
+
 
         }
 
-        public static void GetUserInput(List<Product> products)
+        public static void GetUserInput(List<TestingProductList> products)
         {
 
 
@@ -50,16 +54,16 @@ namespace Midterm_team_exotic
             }
         }
 
-        public static void AcceptCash(List<Product> products)
+        public static void AcceptCash(List<TestingProductList> products)
         {
             Console.WriteLine("You've chosen cash");
 
             //calculate total of the products
             double totalProductCost = 0;
-            foreach (Product product in products)
+            foreach (TestingProductList product in products)
             {
-                totalProductCost = totalProductCost + product.Price;
-                Console.WriteLine(product.Price);
+                totalProductCost = totalProductCost + product.ProductPrice;
+                Console.WriteLine(product.ProductPrice);
             }
             Console.WriteLine("Your total cost is : " + totalProductCost);
 
@@ -84,7 +88,7 @@ namespace Midterm_team_exotic
             double change = cashAmount - totalProductCost;
             Console.WriteLine("Your change is : " + change); 
         }
-        public static void AcceptCheck(List<Product> products)
+        public static void AcceptCheck(List<TestingProductList> products)
         {
             Console.WriteLine("You've chosen check");
             Console.WriteLine("Please enter your check number");
@@ -97,7 +101,7 @@ namespace Midterm_team_exotic
             }
             Console.WriteLine("This is your check number " + checkNumber);
         }
-        public static void AcceptCredit(List<Product> products)
+        public static void AcceptCredit(List<TestingProductList> products)
         {   
             Console.WriteLine("You've chosen credit");
             //Take in credit card number
