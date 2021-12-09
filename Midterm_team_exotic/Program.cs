@@ -10,22 +10,24 @@ namespace Midterm_team_exotic
     {
         static void Main(string[] args)
         {
-            //this is test data of customer purchase
-            //var myProduct = new Product { ProductCategory = "test data", ProductDescription = "more test data", ProductPrice = 10.50, ProductName = "test name"};
-            //var myProduct2 = new Product { ProductCategory = "super test data", ProductDescription = "super more test data", ProductPrice = 20.50, ProductName = "super test name" };
-            //var products = new List<Product> { myProduct, myProduct2};
-            //GetUserInput(products);
 
-            var myProduct3 = new TestingProductList { ProductCategory = "test data", ProductDescription = "more test data", ProductPrice = 10.50, ProductName = "test name", PaymentTotal = 20.50, ProductId = 1, ProductOrderQuantity = 3, ProductTotalTax = 40 };
-            var myProduct4 = new TestingProductList { ProductCategory = "test data", ProductDescription = "more test data", ProductPrice = 15.50, ProductName = "test name", PaymentTotal = 30.50, ProductId = 2, ProductOrderQuantity = 6, ProductTotalTax = 60 };
-            var products = new List<TestingProductList> { myProduct3, myProduct4 };
-            GetUserInput(products);
-            //I suck
+
+            
+            var myProduct1 = new LineItemData { ProductCategory = "dinner", ProductDescription = "more test data", ProductPrice = 13.50, ProductName = "Cheeseburger", LineItemTotal = 20.50, ProductId = 1, LineItemQuantity = 3, LineItemTax = 40 };
+            var myProduct2 = new LineItemData { ProductCategory = "dinner", ProductDescription = "more test data", ProductPrice = 18.50, ProductName = "cookies", LineItemTotal = 30.50, ProductId = 2, LineItemQuantity = 6, LineItemTax = 60 };
+
+            var myProduct3 = new LineItemData { ProductCategory = "lunch", ProductDescription = "more test data", ProductPrice = 10.50, ProductName = "nuggets", LineItemTotal = 20.50, ProductId = 1, LineItemQuantity = 3, LineItemTax = 40 };
+            var myProduct4 = new LineItemData { ProductCategory = "lunch", ProductDescription = "more test data", ProductPrice = 15.50, ProductName = "coke", LineItemTotal = 30.50, ProductId = 2, LineItemQuantity = 6, LineItemTax = 60 };
+            var lunchProducts = new List<LineItemData> { myProduct3, myProduct4, };
+            var allProducts = new List<LineItemData> { myProduct1, myProduct2, myProduct3, myProduct4 };
+           
+            PaymentMethod(lunchProducts);
+
 
 
         }
 
-        public static void GetUserInput(List<TestingProductList> products)
+        public static void PaymentMethod(List<LineItemData> products)
         {
 
 
@@ -54,19 +56,12 @@ namespace Midterm_team_exotic
             }
         }
 
-        public static void AcceptCash(List<TestingProductList> products)
+        public static void AcceptCash(List<LineItemData> products)
         {
             Console.WriteLine("You've chosen cash");
-
             //calculate total of the products
-            double totalProductCost = 0;
-            foreach (TestingProductList product in products)
-            {
-                totalProductCost = totalProductCost + product.ProductPrice;
-                Console.WriteLine(product.ProductPrice);
-            }
+            double totalProductCost = CalculatePaymentTotal(products);
             Console.WriteLine("Your total cost is : " + totalProductCost);
-
             Console.WriteLine("Please enter tendered amount");
 
             double cashAmount;
@@ -83,12 +78,12 @@ namespace Midterm_team_exotic
                 Console.WriteLine("You don't have enough money.");
                 return;
             }
-
             //subtract total from cashAmount
             double change = cashAmount - totalProductCost;
-            Console.WriteLine("Your change is : " + change); 
+            Console.WriteLine("Your change is : " + change);
+            PrintCashReceipt(products);
         }
-        public static void AcceptCheck(List<TestingProductList> products)
+        public static void AcceptCheck(List<LineItemData> products)
         {
             Console.WriteLine("You've chosen check");
             Console.WriteLine("Please enter your check number");
@@ -101,7 +96,7 @@ namespace Midterm_team_exotic
             }
             Console.WriteLine("This is your check number " + checkNumber);
         }
-        public static void AcceptCredit(List<TestingProductList> products)
+        public static void AcceptCredit(List<LineItemData> products)
         {   
             Console.WriteLine("You've chosen credit");
             //Take in credit card number
@@ -142,10 +137,105 @@ namespace Midterm_team_exotic
             
         }
 
-       
+        public static double CalculatePaymentTotal(List<LineItemData> products)
+        {
+            double totalProductCost = 0;
+            foreach (LineItemData product in products)
+            {
+                totalProductCost = totalProductCost + product.ProductPrice;
+            }
+            return totalProductCost;
+        }
+
+       public static void PrintSubTotal(List<LineItemData> products)
+        {
+            Dictionary<string, List<LineItemData>> categoryDictionary = new Dictionary<string, List<LineItemData>>();
+            categoryDictionary = SeperateCategories(products);
+            foreach (KeyValuePair<string, List<LineItemData>> entry in categoryDictionary)
+            {
+                Console.Write("Category : ");
+                Console.WriteLine(entry.Key);
+            }
+
+
+        }
+
+        public static void PrintCashReceipt(List<LineItemData> products)
+        {
+           Console.WriteLine("Customer receipt");
+
+           foreach(LineItemData product in products)
+            {
+                Console.Write(product.ProductName);
+                Console.Write(" - " + "$" + product.ProductPrice);
+                Console.Write(" - " + product.ProductCategory);
+                Console.WriteLine(" - " + "quantity: " + product.LineItemQuantity);
+                
+               
+                
+            }
+            Console.WriteLine("This is your sub total : ");
+            PrintSubTotal(products);
+            Console.WriteLine("This is your grand total : " + CalculatePaymentTotal(products));
+            Console.WriteLine("You paid with cash");
+        }
+
+        public static void PrintCreditReceipt(List<LineItemData> products)
+        {
+            foreach (LineItemData product in products)
+            {
+                Console.WriteLine(product.ProductName, product.LineItemTotal, product.ProductCategory, product.LineItemQuantity);
+
+            }
+            Console.WriteLine("This is your total : " + CalculatePaymentTotal(products));
+            Console.WriteLine("You paid with credit");
+        }
+
+        public static void PrintCheckReceipt(List<LineItemData> products)
+        {
+            foreach (LineItemData product in products)
+            {
+                Console.WriteLine(product.ProductName, product.LineItemTotal, product.ProductCategory, product.LineItemQuantity);
+
+            }
+            Console.WriteLine("This is your total : " + CalculatePaymentTotal(products));
+            Console.WriteLine("You paid with check");
+        }
+
+        public static Dictionary<string, List<LineItemData>> SeperateCategories(List<LineItemData> products)
+        {
+
+            Dictionary<string, List<LineItemData>> categoryDictionary = new Dictionary<string, List<LineItemData>>();
+
+            //loop through product list
+            foreach (LineItemData product in products )
+            {   
+                //if new catergory, add key to dictionary
+                if (categoryDictionary.ContainsKey(product.ProductCategory) == false)
+                {
+                    categoryDictionary.Add(product.ProductCategory, new List<LineItemData> {product});
+                }
+                //if old category, add new product
+                else
+                {
+                    categoryDictionary[product.ProductCategory].Add(product); 
+                }
+                
+                
+
+            }
 
 
 
-       
+            return categoryDictionary;
+        }
+
+
+
+
+
+
+
+
     }
 }
