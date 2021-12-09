@@ -6,21 +6,15 @@ namespace Midterm_team_exotic
 {
     class Program
     {
-        //private static int inputNumberID;
-
         static void Main(string[] args)
         {
 
-            List<Product> mcDonaldsItems = MenuDisplayTestData();
 
             Console.WriteLine("Welcome to Mcdonalds!");
             Console.WriteLine();
 
-            List<LineItemData> customerItemPurchaseList = OrderMenu(mcDonaldsItems);
-
+            List<LineItemData> customerItemPurchaseList = OrderMenu(savedList);
             DisplayInvoiceSummary(customerItemPurchaseList);
-
-            Console.WriteLine();
 
         }
 
