@@ -89,8 +89,8 @@ namespace Midterm_team_exotic
             return products;
         }
 
-
-
+        //Add the last item of a list of products to a list
+        //It then writes the LAST item of the list to a the file.
         public static void AddProductToFile(List<Product> product)
         {
             string path = @"..\..\..\productlist.txt";
