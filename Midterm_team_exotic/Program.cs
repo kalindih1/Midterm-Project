@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 namespace Midterm_team_exotic
 {
@@ -9,11 +10,10 @@ namespace Midterm_team_exotic
         static void Main(string[] args)
         {
 
-            string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\ProductList.txt");
+            //string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\ProductList.txt");
             List<Product> savedList = FileReader.ReadFile();
 
-
-            Console.ReadLine();
+            //Console.ReadLine();
 
             Console.WriteLine("Welcome to Mcdonalds!");
             Console.WriteLine();
