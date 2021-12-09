@@ -19,7 +19,7 @@ namespace Midterm_team_exotic
 
         public static void RunPOS(List<Product> savedList)
         {
-            bool tureOffPOS = false;
+            bool anotherorder = false;
             string userInput;
 
             do
@@ -34,22 +34,22 @@ namespace Midterm_team_exotic
 
                 customerItemPurchaseList.Clear();
                 Console.WriteLine(); 
-                Console.WriteLine("Would you like to turn off POS? (y/n) ");
+                Console.WriteLine("Would you like to put in another order? (y/n) ");
                 userInput = Console.ReadLine();
 
 
-                if (userInput.Trim().ToLower() == "y")
+                if (userInput.Trim().ToLower() == "n")
                 {
-                    tureOffPOS = true;
+                    anotherorder = true;
                 }
-                else if (userInput.Trim().ToLower() != "n")
+                else if (userInput.Trim().ToLower() != "y")
                 {
                     Console.WriteLine("Incorect input...error...turning off");
-                    tureOffPOS = true;
+                    anotherorder = true;
 
                 }
 
-            } while (!tureOffPOS);
+            } while (!anotherorder);
         }
 
 
@@ -276,6 +276,7 @@ namespace Midterm_team_exotic
 
         public static void PaymentMethod(List<LineItemData> products)
         {
+            Label:
             Console.WriteLine(); 
             Console.WriteLine("Would you like to pay with Cash, Check or Credit?\n");
 
@@ -297,9 +298,9 @@ namespace Midterm_team_exotic
             else
             {
                 Console.WriteLine("Please check your spelling or select payment method again\n");
-                Console.WriteLine("Would you like to pay with Cash, Check or Credit?\n");
-                checkUserInput = Console.ReadLine().Trim().ToLower();
-
+                //Console.WriteLine("Would you like to pay with Cash, Check or Credit?\n");
+                //checkUserInput = Console.ReadLine().Trim().ToLower();
+                goto Label; 
             }
         }
 
@@ -340,7 +341,7 @@ namespace Midterm_team_exotic
         public static void AcceptCheck(List<LineItemData> products)
         {
             Console.WriteLine("You've chosen check\n");
-            Console.WriteLine("Please enter your check number\n");
+            Console.WriteLine("Please enter your three digit check number.\n");
 
             int checkNumber;
             while (int.TryParse(Console.ReadLine(), out checkNumber) == false)
