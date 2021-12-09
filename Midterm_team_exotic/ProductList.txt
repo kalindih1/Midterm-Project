@@ -5,7 +5,7 @@
 5 | Hashbrowns | Breakfast | Our famous hashbrown cakes, now on our dollar menu! | 0.99
 6 | Caramel Macchiato | Coffee | A delicous and creamy coffee drink with caramel syrup | 3.29
 7 | McGriddle | Breakfast | A sausage patty with some sweet english muffins and a hint of maple syrup | 4.49
-8 | Coffee | Coffee | A black cup of piping hot coffee. Ask one of your servers for cream or sugar! | 1.19
+8 | Coffee Test | Coffee | A black cup of piping hot coffee. Ask one of your servers for cream or sugar! | 1.19
 9 | Iced Mocha | Coffee | A delicious iced espresso drink made with whole milk and rich mocha | 4.89 
 10 | Spicy Crispy Chicken Sandwich | Chicken | Our signature crispy chicken sandwich with a bit of a kick | 7.39
 11 | Chicken McNuggets | Chicken | Do it for the nuggies | 5.89

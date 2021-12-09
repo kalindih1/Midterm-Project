@@ -9,6 +9,11 @@ namespace Midterm_team_exotic
         static void Main(string[] args)
         {
 
+            string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\ProductList.txt");
+            List<Product> savedList = FileReader.ReadFile();
+
+
+            Console.ReadLine();
 
             Console.WriteLine("Welcome to Mcdonalds!");
             Console.WriteLine();
@@ -236,6 +241,7 @@ namespace Midterm_team_exotic
             mcDonaldsItems.Add(itemE);
 
             return mcDonaldsItems;
+
         }
 
     }
