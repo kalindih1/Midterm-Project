@@ -14,9 +14,6 @@ namespace Midterm_team_exotic
             //string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\ProductList.txt");
             List<Product> savedList = FileReader.ReadFile();
 
-            //Console.ReadLine();
-
-
             Console.WriteLine("Welcome to Mcdonalds!");
             Console.WriteLine();
 
