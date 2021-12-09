@@ -1,9 +1,8 @@
-﻿using System;
+using System;
 namespace Midterm_team_exotic
 {
     public class LineItemData : Product
-    {
-        private const double salesTax  = .06;
+    private const double salesTax  = .06;
 
         public double LineItemTotal { get; set; }
         public int LineItemQuantity { get; set; }
@@ -22,6 +21,6 @@ namespace Midterm_team_exotic
             lineItemTotal = itemQuantity * productPrice;
             return lineItemTotal; 
         }
-
     }
 }
+
