@@ -33,7 +33,7 @@ namespace Midterm_team_exotic
                 PaymentMethod(customerItemPurchaseList);
 
                 customerItemPurchaseList.Clear();
-
+                Console.WriteLine(); 
                 Console.WriteLine("Would you like to turn off POS? (y/n) ");
                 userInput = Console.ReadLine();
 
@@ -177,7 +177,7 @@ namespace Midterm_team_exotic
                 do
                 {
                     Console.WriteLine("");
-                    Console.WriteLine("Continue(y/n)?");
+                    Console.WriteLine("Add another item? (y/n)");
                     String errorResponce = "Sorry, your input is not valid. Try again.";
                     string userInput = "";
                     userInput = Console.ReadLine();
@@ -276,7 +276,7 @@ namespace Midterm_team_exotic
 
         public static void PaymentMethod(List<LineItemData> products)
         {
-
+            Console.WriteLine(); 
             Console.WriteLine("Would you like to pay with Cash, Check or Credit?\n");
 
             string checkUserInput = Console.ReadLine().Trim().ToLower();
@@ -305,11 +305,13 @@ namespace Midterm_team_exotic
 
         public static void AcceptCash(List<LineItemData> products)
         {
-
-            Console.WriteLine("You've chosen cash\n");
+            Console.WriteLine();
+            Console.WriteLine("You've chosen cash");
             //calculate total of the products
-            double totalProductCost = CalculatePaymentTotal(products);
-            Console.WriteLine("Your total cost is : " + totalProductCost + "\n");
+            //double totalProductCost = CalculatePaymentTotal(products);
+            double totalProductCost = CalculatePaymentWithTax(products);
+            Console.WriteLine($"Your total cost is : {totalProductCost:C}");
+            Console.WriteLine();
             Console.WriteLine("Please enter tendered amount\n");
 
             double cashAmount;
@@ -320,7 +322,8 @@ namespace Midterm_team_exotic
             }
             if (cashAmount > totalProductCost)
             {
-                Console.WriteLine("This is your amount given : " + cashAmount + "\n");
+                Console.WriteLine();
+                Console.WriteLine($"This is your amount given : {cashAmount:C}");
             }
             else
             {
@@ -329,7 +332,8 @@ namespace Midterm_team_exotic
             }
             //subtract total from cashAmount
             double change = cashAmount - totalProductCost;
-            Console.WriteLine("Your change is : " + change + "\n");
+            //Console.WriteLine("Your change is : " + change + "\n");
+            Console.WriteLine($"Your change is : {change:C}");
             PrintReceipt(products, "cash");
 
         }
@@ -338,8 +342,6 @@ namespace Midterm_team_exotic
             Console.WriteLine("You've chosen check\n");
             Console.WriteLine("Please enter your check number\n");
 
-
-            // TODO: make sure to ask instructor what is a valid check number
             int checkNumber;
             while (int.TryParse(Console.ReadLine(), out checkNumber) == false)
             {
@@ -385,12 +387,10 @@ namespace Midterm_team_exotic
             string cardCw = Console.ReadLine().Trim();
             while (cardCw.All(char.IsDigit) == false || cardCw.Length != 3)
             {
-                Console.WriteLine("Not a valid input. Make sure you entered 3 numbers\n");
+                Console.WriteLine("Not a valid input. Make sure you entered 3 numbers");
                 cardCw = Console.ReadLine().Trim();
             }
             PrintReceipt(products, "credit");
-
-
 
         }
 
@@ -406,11 +406,12 @@ namespace Midterm_team_exotic
 
         public static double CalculatePaymentWithTax(List<LineItemData> products)
         {
-            const double tax = 0.6;
+            //const double tax = 0.6;
             double totalProductCost = 0;
             foreach (LineItemData product in products)
             {
-                totalProductCost = totalProductCost + (product.ProductPrice * tax);
+                //totalProductCost = totalProductCost + (product.ProductPrice * tax);
+                totalProductCost = totalProductCost + (product.LineItemTax + product.LineItemTotal); 
             }
             return totalProductCost;
 
@@ -428,43 +429,35 @@ namespace Midterm_team_exotic
                 Console.Write("This is the subtotal : ");
                 Console.WriteLine(CalculatePaymentTotal(entry.Value)+ "\n");
 
-              
-
             }
             
-
 
         }
         public static void PrintReceipt(List<LineItemData> products, string paymentType)
         {
-
-            Console.WriteLine("Customer receipt\n");
-
+            Console.WriteLine();
+            Console.WriteLine("****Customer receipt****");
+            Console.WriteLine("You paid with " + paymentType);
+            Console.WriteLine();
 
             foreach (LineItemData product in products)
             {
-                Console.Write(product.ProductName);
-                Console.Write(" - " + "$" + product.ProductPrice);
-                Console.Write(" - " + product.ProductCategory);
-
-                Console.WriteLine(" - " + "quantity: " + product.LineItemQuantity + "\n");
-
-
-
+                Console.WriteLine(product.ProductName);
+                Console.WriteLine(" - " + product.ProductCategory);
+                Console.WriteLine(" - " + "quantity: " + product.LineItemQuantity);
+                Console.WriteLine(" - Unit price " + "$" + product.ProductPrice);
+                Console.WriteLine();
+                Console.WriteLine($" - SubTotal with tax (6%): {product.LineItemTotal + product.LineItemTax:C}");
+                Console.WriteLine();
 
             }
 
-            PrintSubTotal(products);
-            Console.WriteLine("This is your grand total : " + CalculatePaymentWithTax(products)+ "\n");
-            Console.WriteLine("You paid with " + paymentType + "\n");
+            //PrintSubTotal(products);
+            Console.WriteLine($"Grand total with tax (6%) {CalculatePaymentWithTax(products):C}");
+            Console.WriteLine("************************");
+            //Console.WriteLine("You paid with " + paymentType);
         }
 
-
-       
-
-        
-
-        
 
         public static Dictionary<string, List<LineItemData>> SeperateCategories(List<LineItemData> products)
         {
