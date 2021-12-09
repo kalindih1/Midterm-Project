@@ -177,7 +177,7 @@ namespace Midterm_team_exotic
                 do
                 {
                     Console.WriteLine("");
-                    Console.WriteLine("Continue(y/n)?");
+                    Console.WriteLine("Add another item? (y/n)");
                     String errorResponce = "Sorry, your input is not valid. Try again.";
                     string userInput = "";
                     userInput = Console.ReadLine();
