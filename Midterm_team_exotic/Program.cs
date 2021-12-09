@@ -1,15 +1,193 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace Midterm_team_exotic
 {
     class Program
     {
+        //private static int inputNumberID;
+
         static void Main(string[] args)
         {
 
+            List<Product> mcDonaldsItems = MenuDisplayTestData();
+
+            Console.WriteLine("Welcome to Mcdonalds!");
+            Console.WriteLine();
+
+            List<LineItemData> customerItemPurchaseList = OrderMenu(mcDonaldsItems);
+
+            DisplayInvoiceSummary(customerItemPurchaseList);
+
+            Console.WriteLine();
+
+        }
+
+        public static void DisplayInvoiceSummary(List<LineItemData> customerItemPurchaseList)
+        {
+            Console.WriteLine("");
+            Console.WriteLine($"Subtotal    =  {Invoice.CalculateSubtotal(customerItemPurchaseList):C}");
+            Console.WriteLine($"Sales Tax   =  {Invoice.CalculateSalesTaxTotal(customerItemPurchaseList):C}");
+            Console.WriteLine($"Grand Total =  {Invoice.CalculateGrandTotal(Invoice.CalculateSubtotal(customerItemPurchaseList), Invoice.CalculateSalesTaxTotal(customerItemPurchaseList)):C}");
+        }
+
+        public static void MenuDisplay(List<LineItemData> mcDonaldsSortedList)
+        {
+
+            string lastCategory = "";
+            foreach (var item in mcDonaldsSortedList)
+            {
+
+                if (item.ProductCategory != lastCategory)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine($"{item.ProductCategory}");
+                }
+
+                Console.WriteLine($"{item.ProductName} ID({item.ProductId}) - {item.ProductDescription}: {item.ProductPrice:C}");
+                lastCategory = item.ProductCategory;
+            }
+
+        }
+
+
+        public static List<LineItemData> OrderMenu(List<Product> products)
+        {
+            List<Product> mcDonaldsSortedList = products.OrderBy(x => x.ProductCategory).ToList();
+
+            List<LineItemData> mcDonaldsfullList = new List<LineItemData>();
+
+            foreach (var item in mcDonaldsSortedList)
+            {
+                mcDonaldsfullList.Add(new LineItemData()
+                {
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    ProductCategory = item.ProductCategory,
+                    ProductDescription = item.ProductDescription,
+                    ProductPrice = item.ProductPrice
+
+                });
+
+            }
+
+            MenuDisplay(mcDonaldsfullList);
+
+            List<LineItemData> userpurchaseList = new List<LineItemData>();
+            bool redo = false;
+            do
+            {
+                bool wrongItemInput = false;
+                string selectText = "Please select an item (Number ID).";
+                double inputNumberID;
+                do
+                {
+
+                    Console.WriteLine("");
+                    if (wrongItemInput == false)
+                    {
+                        Console.WriteLine(selectText);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Item number ID not eligible - {selectText}");
+                    }
+
+                    bool successfullUserItemInput = double.TryParse(Console.ReadLine(), out inputNumberID);
+
+                    if (successfullUserItemInput == false)
+                    {
+                        wrongItemInput = true;
+                    }
+
+                    try
+                    {
+                        var result = mcDonaldsSortedList.Find(x => x.ProductId == inputNumberID).ProductId;
+                        wrongItemInput = false;
+                    }
+                    catch (Exception)
+                    {
+                        wrongItemInput = true;
+                    }
+
+                } while (wrongItemInput);
+
+                bool wrongQuantityInput = false;
+                int inputQuantity = 0;
+
+                do
+                {
+                    Console.WriteLine("How many would you like?");
+                    bool successfullUserQuantityInput = int.TryParse(Console.ReadLine(), out inputQuantity);
+
+                    if (successfullUserQuantityInput == false || inputQuantity <= 0)
+                    {
+                        Console.WriteLine("Quantity needs to be a positive interger. Try again - ");
+                        wrongQuantityInput = true;
+                    }
+                    else
+                    {
+                        wrongQuantityInput = false;
+                    }
+
+                } while (wrongQuantityInput);
+
+                var itempicked = mcDonaldsfullList.Find(x => x.ProductId == inputNumberID);
+
+                itempicked.LineItemQuantity = inputQuantity;
+
+                itempicked.LineItemTotal = LineItemData.calculateItemTotal(inputQuantity, itempicked.ProductPrice);
+                itempicked.LineItemTax = LineItemData.calculateItemTax(itempicked.LineItemTotal);
+
+                userpurchaseList.Add(itempicked);
+
+
+                bool pickAnotherItem = false;
+
+                do
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("Continue(y/n)?");
+                    String errorResponce = "Sorry, your input is not valid. Try again."; 
+                    string userInput = "";
+                    userInput = Console.ReadLine();
+
+                    if (!string.IsNullOrEmpty(userInput))
+                    {
+                        pickAnotherItem = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine(errorResponce);
+                        continue;
+                    }
+
+                    if (userInput.Trim().ToLower() == "y")
+                    {
+                        MenuDisplay(mcDonaldsfullList);
+                    }
+                    else if (userInput.Trim().ToLower() != "n")
+                    {
+                        Console.WriteLine(errorResponce);
+                        pickAnotherItem = false;
+                        continue;
+                    }
+                    else
+                    {
+                        redo = true;
+                    }
+
+                } while (!pickAnotherItem);
+
+            } while (!redo);
+
+            return userpurchaseList;
+
+        }
+
+        public static List<Product> MenuDisplayTestData()
+        {
             Product itemA = new Product()
             {
                 ProductId = 1,
@@ -63,119 +241,7 @@ namespace Midterm_team_exotic
             mcDonaldsItems.Add(itemD);
             mcDonaldsItems.Add(itemE);
 
-            List<Product> mcDonaldsSortedList = mcDonaldsItems.OrderBy(x => x.ProductCategory).ToList();
-
-            List<CustomerProductList> mcDonaldsfullList = new List<CustomerProductList>();
-
-
-            foreach (var item in mcDonaldsSortedList)
-            {
-                CustomerProductList additem = new CustomerProductList()
-                {
-                    ProductId = item.ProductId,
-                    ProductName = item.ProductName,
-                    ProductCategory = item.ProductCategory,
-                    ProductDescription = item.ProductDescription,
-                    ProductPrice = item.ProductPrice,
-                    PaymentTotal = 0,
-                    ProductOrderQuantity = 0
-                };
-
-                mcDonaldsfullList.Add(additem); 
-
-            }
-
-
-            Console.WriteLine("Welcome to Mcdonalds!");
-            Console.WriteLine();
-
-            string lastCategory = "";
-            foreach (var item in mcDonaldsSortedList)
-            {
-
-                if (item.ProductCategory != lastCategory)
-                {
-                    Console.WriteLine("");
-                    Console.WriteLine($"{item.ProductCategory}");
-                }
-
-                Console.WriteLine($"{item.ProductName} ID({item.ProductId}) - {item.ProductDescription}: ${item.ProductPrice}");
-                lastCategory = item.ProductCategory;
-            }
-
-            //asking user for items to order
-
-            List<CustomerProductList> userpurchaseList = new List<CustomerProductList>();
-            bool redo = false;
-            do
-            {
-
-                Console.WriteLine("");
-                Console.WriteLine("Please select an item (Number ID).");
-
-                double inputNumberID = double.Parse(Console.ReadLine());
-
-                Console.WriteLine("How many would you like?");
-                int inputQuantity = int.Parse(Console.ReadLine());
-
-
-                //var itempicked = mcDonaldsSortedList.Find(x => x.ProductId == inputNumberID);
-                var itempicked = mcDonaldsfullList.Find(x => x.ProductId == inputNumberID);
-
-
-                double paymentTotal = 0;
-
-                paymentTotal = (inputQuantity * itempicked.ProductPrice) + paymentTotal;
-
-                itempicked.PaymentTotal = (inputQuantity * itempicked.ProductPrice) + paymentTotal;
-
-                itempicked.ProductOrderQuantity = inputQuantity;
-
-                //List<CustomerProductList> userpurchaseList = new List<CustomerProductList>();
-                userpurchaseList.Add(itempicked);
-
-
-                bool pickAnotherItem = false;
-
-                do
-                {
-
-                    Console.WriteLine("");
-                    Console.WriteLine("Continue(y/n)?");
-
-                    string userInput = "";
-                    userInput = Console.ReadLine();
-
-                    if (!string.IsNullOrEmpty(userInput))
-                    {
-                        pickAnotherItem = true;
-
-                    }
-                    else
-                    {
-                        Console.WriteLine("Sorry, your input is not valid. Try again.");
-                        continue;
-                    }
-
-
-                    if (userInput.Trim().ToLower() == "y")
-                    {
-                        //Do nothing. 
-                    }
-                    else
-                    {
-                        redo = true;
-                    }
-
-
-                } while (!pickAnotherItem);
-
-            } while (!redo);
-
-
-            Console.WriteLine($" Done ");
-
-            //Console.WriteLine("Would you like to ");
+            return mcDonaldsItems;
         }
 
     }
