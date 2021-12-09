@@ -11,33 +11,47 @@ namespace Midterm_team_exotic
         static void Main(string[] args)
         {
 
-            //string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\ProductList.txt");
             List<Product> savedList = FileReader.ReadFile();
 
-            //Console.ReadLine();
-
-
-            Console.WriteLine("Welcome to Mcdonalds!");
-            Console.WriteLine();
-
-            List<LineItemData> customerItemPurchaseList = OrderMenu(savedList);
-            DisplayInvoiceSummary(customerItemPurchaseList);
-          
-          
-            var myProduct1 = new LineItemData { ProductCategory = "dinner", ProductDescription = "more test data", ProductPrice = 13.50, ProductName = "Cheeseburger", LineItemTotal = 20.50, ProductId = 1, LineItemQuantity = 3, LineItemTax = 40 };
-            var myProduct2 = new LineItemData { ProductCategory = "dinner", ProductDescription = "more test data", ProductPrice = 18.50, ProductName = "cookies", LineItemTotal = 30.50, ProductId = 2, LineItemQuantity = 6, LineItemTax = 60 };
-
-            var myProduct3 = new LineItemData { ProductCategory = "lunch", ProductDescription = "more test data", ProductPrice = 10.50, ProductName = "nuggets", LineItemTotal = 20.50, ProductId = 1, LineItemQuantity = 3, LineItemTax = 40 };
-            var myProduct4 = new LineItemData { ProductCategory = "lunch", ProductDescription = "more test data", ProductPrice = 15.50, ProductName = "coke", LineItemTotal = 30.50, ProductId = 2, LineItemQuantity = 6, LineItemTax = 60 };
-            var lunchProducts = new List<LineItemData> { myProduct3, myProduct4, };
-            var allProducts = new List<LineItemData> { myProduct1, myProduct2, myProduct3, myProduct4 };
-           
-            PaymentMethod(lunchProducts);
-
-          
-          Console.ReadLine();
+            RunPOS(savedList); 
 
         }
+
+        public static void RunPOS(List<Product> savedList)
+        {
+            bool tureOffPOS = false;
+            string userInput;
+
+            do
+            {
+                Console.WriteLine("Welcome to Mcdonalds!");
+                Console.WriteLine();
+
+                List<LineItemData> customerItemPurchaseList = OrderMenu(savedList);
+                DisplayInvoiceSummary(customerItemPurchaseList);
+
+                PaymentMethod(customerItemPurchaseList);
+
+                customerItemPurchaseList.Clear();
+
+                Console.WriteLine("Would you like to turn off POS? (y/n) ");
+                userInput = Console.ReadLine();
+
+
+                if (userInput.Trim().ToLower() == "y")
+                {
+                    tureOffPOS = true;
+                }
+                else if (userInput.Trim().ToLower() != "n")
+                {
+                    Console.WriteLine("Incorect input...error...turning off");
+                    tureOffPOS = true;
+
+                }
+
+            } while (!tureOffPOS);
+        }
+
 
         public static void DisplayInvoiceSummary(List<LineItemData> customerItemPurchaseList)
         {
@@ -164,7 +178,7 @@ namespace Midterm_team_exotic
                 {
                     Console.WriteLine("");
                     Console.WriteLine("Continue(y/n)?");
-                    String errorResponce = "Sorry, your input is not valid. Try again."; 
+                    String errorResponce = "Sorry, your input is not valid. Try again.";
                     string userInput = "";
                     userInput = Console.ReadLine();
 
@@ -247,8 +261,8 @@ namespace Midterm_team_exotic
                 ProductDescription = "McDonald's Eddie McMuffin",
                 ProductPrice = 10.30
             };
-          
-          
+
+
             List<Product> mcDonaldsItems = new List<Product>();
             mcDonaldsItems.Add(itemA);
             mcDonaldsItems.Add(itemB);
@@ -265,7 +279,7 @@ namespace Midterm_team_exotic
         public static void PaymentMethod(List<LineItemData> products)
         {
 
-
+            Console.WriteLine("");
             Console.WriteLine("Would you like to pay with Cash, Check or Credit?");
             string checkUserInput = Console.ReadLine().Trim().ToLower();
 
@@ -293,33 +307,41 @@ namespace Midterm_team_exotic
 
         public static void AcceptCash(List<LineItemData> products)
         {
+            Console.WriteLine("");
             Console.WriteLine("You've chosen cash");
             //calculate total of the products
             double totalProductCost = CalculatePaymentTotal(products);
             Console.WriteLine("Your total cost is : " + totalProductCost);
+
+            Console.WriteLine("");
             Console.WriteLine("Please enter tendered amount");
 
             double cashAmount;
-            while (double.TryParse(Console.ReadLine(),out cashAmount) == false)
+            while (double.TryParse(Console.ReadLine(), out cashAmount) == false)
             {
+                Console.WriteLine("");
                 Console.WriteLine("Not a valid input. Please input your amount.");
             }
             if (cashAmount > totalProductCost)
             {
+                Console.WriteLine("");
                 Console.WriteLine("This is your amount given : " + cashAmount);
             }
             else
             {
+                Console.WriteLine("");
                 Console.WriteLine("You don't have enough money.");
                 return;
             }
             //subtract total from cashAmount
             double change = cashAmount - totalProductCost;
+            Console.WriteLine("");
             Console.WriteLine("Your change is : " + change);
             PrintCashReceipt(products);
         }
         public static void AcceptCheck(List<LineItemData> products)
         {
+            Console.WriteLine("");
             Console.WriteLine("You've chosen check");
             Console.WriteLine("Please enter your check number");
 
@@ -332,35 +354,36 @@ namespace Midterm_team_exotic
             Console.WriteLine("This is your check number " + checkNumber);
         }
         public static void AcceptCredit(List<LineItemData> products)
-        {   
+        {
+            Console.WriteLine("");
             Console.WriteLine("You've chosen credit");
             //Take in credit card number
             Console.WriteLine("Please enter your credit card number");
 
             string cardNumber = Console.ReadLine().Trim();
             cardNumber = cardNumber.Replace(" ", "");
-            
+
             while (cardNumber.All(char.IsDigit) == false || cardNumber.Length != 16)
             {
-                
+
                 Console.WriteLine("Not a valid input. Make sure you entered 16 numbers");
                 cardNumber = Console.ReadLine().Trim();
                 cardNumber = cardNumber.Replace(" ", "");
             }
-            
+
             //Take in expiration date
             Console.WriteLine("Please enter your expiration date in the form 'MM/YY' ");
             string expirationDate = Console.ReadLine().Trim();
 
             Regex expDatePattern = new Regex(@"^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$");
             Match match = expDatePattern.Match(expirationDate);
-            while (match.Success == false )
+            while (match.Success == false)
             {
                 Console.WriteLine("Not a valid input.Make sure you entered the date in the correct format");
                 expirationDate = Console.ReadLine().Trim();
                 match = expDatePattern.Match(expirationDate);
             }
-            
+
             //Take in cw number
             Console.WriteLine("Please enter your cw number");
             string cardCw = Console.ReadLine().Trim();
@@ -369,7 +392,7 @@ namespace Midterm_team_exotic
                 Console.WriteLine("Not a valid input. Make sure you entered 3 numbers");
                 cardCw = Console.ReadLine().Trim();
             }
-            
+
         }
 
         public static double CalculatePaymentTotal(List<LineItemData> products)
@@ -382,7 +405,7 @@ namespace Midterm_team_exotic
             return totalProductCost;
         }
 
-       public static void PrintSubTotal(List<LineItemData> products)
+        public static void PrintSubTotal(List<LineItemData> products)
         {
             Dictionary<string, List<LineItemData>> categoryDictionary = new Dictionary<string, List<LineItemData>>();
             categoryDictionary = SeperateCategories(products);
@@ -397,18 +420,20 @@ namespace Midterm_team_exotic
 
         public static void PrintCashReceipt(List<LineItemData> products)
         {
-           Console.WriteLine("Customer receipt");
+            Console.WriteLine("");
+            Console.WriteLine("Customer receipt");
 
-           foreach(LineItemData product in products)
+            foreach (LineItemData product in products)
             {
                 Console.Write(product.ProductName);
                 Console.Write(" - " + "$" + product.ProductPrice);
                 Console.Write(" - " + product.ProductCategory);
                 Console.WriteLine(" - " + "quantity: " + product.LineItemQuantity);
-                
-               
-                
+
+
+
             }
+            Console.WriteLine("");
             Console.WriteLine("This is your sub total : ");
             PrintSubTotal(products);
             Console.WriteLine("This is your grand total : " + CalculatePaymentTotal(products));
@@ -443,18 +468,18 @@ namespace Midterm_team_exotic
             Dictionary<string, List<LineItemData>> categoryDictionary = new Dictionary<string, List<LineItemData>>();
 
             //loop through product list
-            foreach (LineItemData product in products )
-            {   
+            foreach (LineItemData product in products)
+            {
                 //if new catergory, add key to dictionary
                 if (categoryDictionary.ContainsKey(product.ProductCategory) == false)
                 {
-                    categoryDictionary.Add(product.ProductCategory, new List<LineItemData> {product});
+                    categoryDictionary.Add(product.ProductCategory, new List<LineItemData> { product });
                 }
                 //if old category, add new product
                 else
                 {
-                    categoryDictionary[product.ProductCategory].Add(product); 
-                }   
+                    categoryDictionary[product.ProductCategory].Add(product);
+                }
 
             }
 
