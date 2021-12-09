@@ -54,7 +54,11 @@ namespace Midterm_team_exotic
             //Optional variable for path
             //string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\productlist.txt");
 
-            string path = @"..\..\..\productlist.txt";
+            //Brains path
+            //string path = @"..\..\..\productlist.txt";
+
+            //Eddie path
+            string path = "productlist.txt";
 
             if (File.Exists(path) == true)
             {
