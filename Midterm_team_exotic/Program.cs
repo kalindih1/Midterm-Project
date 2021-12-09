@@ -9,15 +9,26 @@ namespace Midterm_team_exotic
     {
         static void Main(string[] args)
         {
+
+           
+
+            string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\ProductList.txt");
+
+
+
+            List<Product> savedList = FileReader.ReadFile();
             
-            string path = Path.Combine(Directory.GetCurrentDirectory(), @"\ProductList.txt");
-            List<Product> savedList = FileReader.ReadFile(path);
 
-            Console.WriteLine(FileReader.ReadFile(path));
+            foreach (var item in savedList)
+            {
+                Console.WriteLine(item.ProductName);
+            }
+
+      
 
 
 
-            Console.WriteLine("Hello World!");
+            Console.ReadLine();
         }
     }
 }
